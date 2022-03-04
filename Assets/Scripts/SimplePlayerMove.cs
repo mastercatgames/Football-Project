@@ -72,7 +72,7 @@ public class SimplePlayerMove : MonoBehaviour
         Vector3 movementDirection = new Vector3(horizontaInput, 0, verticalInput);
         movementDirection.Normalize();
 
-        //direction.position = transform.position;
+        direction.position = transform.position;
 
         transform.parent.Find("playerLookAt").position = new Vector3(transform.position.x, 2.4f, transform.position.z);
 

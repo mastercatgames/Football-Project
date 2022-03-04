@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    public float playerSpeed = 5.0f;
-    private float normalSpeed = 5.0f;
-    private float runSpeed = 15.0f;
+    private float playerSpeed = 5.0f;
+    public float normalSpeed = 5.0f;
+    public float runSpeed = 15.0f;
     private float jumpHeight = 1.0f;
     public float shootForce = 1.0f;
     private float gravityValue = -9.81f;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
 
     public float distanceOfPlayer;
+    public float followBallSpeed;
 
     private void Start()
     {
@@ -32,14 +33,18 @@ public class PlayerController : MonoBehaviour
 
     // private void LateUpdate()
     // {
+    //     distanceOfPlayer = Vector3.Distance(ball.position, transform.position);
     //     if (isHavingBall)
     //     {
-    //         playerSpeed = 0f;
-    //         distanceOfPlayer = Vector3.Distance(ball.position, transform.position);
+    //         normalSpeed = 0f;
 
-    //         if (distanceOfPlayer > 5f)
+    //         transform.LookAt(ball.parent.Find("playerLookAt").position);
+
+    //         if (distanceOfPlayer > 4f)
     //         {
-    //             transform.position = Vector3.MoveTowards(transform.position, ball.position, 15f * Time.deltaTime);
+    //             //transform.position = Vector3.MoveTowards(transform.position, ball.position, 15f * Time.deltaTime);
+    //             //transform.position = Vector3.Lerp(transform.position, ball.position, Time.deltaTime * 10f);
+    //             transform.Translate(Vector3.forward * followBallSpeed * Time.deltaTime);
     //         }
     //     }
     // }
@@ -52,6 +57,8 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(transform.position + move * playerSpeed * Time.deltaTime);
 
+        
+
         // if (move != Vector3.zero)
         // {
         //     rb.MovePosition(transform.position + transform.forward * 5.0f * Time.deltaTime);
@@ -62,10 +69,11 @@ public class PlayerController : MonoBehaviour
     {
         
 
-        // if (isHavingBall)
-        // {
-        //     playerSpeed = 0f;            
-        // }
+        if (isHavingBall)
+        {
+            //playerSpeed = 0f;            
+            //transform.LookAt(ball.parent.Find("playerLookAt").position);
+        }
 
         // distanceOfPlayer = Vector3.Distance(ball.position, transform.position);
 
@@ -163,24 +171,37 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Ball" && !isHavingBall)
+        if (other.name == "Ball"/* && !isHavingBall*/)
         {
-            //this.enabled = false;
-            controller.enabled = false;
-            isHavingBall = true;
+            //transform.position = new Vector3(0f, 1.28f, -2f);
+            this.enabled = false;
+
+
+            isHavingBall = true;          
+
+            //ball.GetComponent<SimplePlayerMove>().Move(300f);
+
+            // controller.enabled = false;            
             ball.GetComponent<SimplePlayerMove>().enabled = true;
+            // transform.parent = other.transform.parent.Find("Direction");            
+            // transform.position = new Vector3(0f, 1.28f, -2f);
+
+
+            //transform.position = Vector3.zero;
+
+            //normalSpeed = 0f;
 
             //Join ball
-            SpringJoint joint = ball.gameObject.AddComponent<SpringJoint>();
-            joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = new Vector3(0f, 0f, 2f);
-            // joint.connectedBody = transform.Find("Foot").GetComponent<Rigidbody>();
-            joint.connectedBody = rb;
-            joint.connectedMassScale = 20f;
-            // joint.massScale = .001f;
-            // joint.damper = 2f;
-            //joint.maxDistance = 1.5f;
-            //ball.GetComponent<SimplePlayerMove>().joint = joint;
+            // SpringJoint joint = ball.gameObject.AddComponent<SpringJoint>();
+            // joint.autoConfigureConnectedAnchor = false;
+            // joint.connectedAnchor = new Vector3(0f, 0f, 2f);
+            // // joint.connectedBody = transform.Find("Foot").GetComponent<Rigidbody>();
+            // joint.connectedBody = rb;
+            // joint.connectedMassScale = 20f;
+            // // joint.massScale = .001f;
+            // // joint.damper = 2f;
+            // //joint.maxDistance = 1.5f;
+            // //ball.GetComponent<SimplePlayerMove>().joint = joint;
 
             ball.GetComponent<Rigidbody>().drag = 0;
 
@@ -197,7 +218,7 @@ public class PlayerController : MonoBehaviour
 
     public void EnablePlayerToRun()
     {
-        controller.enabled = true;
+        //controller.enabled = true;
         isHavingBall = false;
         ball.GetComponent<SimplePlayerMove>().enabled = false;
     }
