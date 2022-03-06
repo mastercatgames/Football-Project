@@ -8,12 +8,18 @@ public class BallController : MonoBehaviour
     public float runMaxSpeed;
     public float normalMaxSpeed;
     private float maxSpeed;
+    public Transform playerLookAt;
     
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    void Update()
+    {
+        playerLookAt.position = new Vector3(transform.position.x, 2.4f, transform.position.z);
     }
 
     // Update is called once per frame
@@ -34,6 +40,7 @@ public class BallController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = runMaxSpeed;
+            //TODO: Increase the player following speed too (or using the same variable)
         }
         else
         {
@@ -41,5 +48,12 @@ public class BallController : MonoBehaviour
         }
 
         print(rb.velocity.magnitude);
+    }
+
+    void JogBall()
+    {
+        //A little force the push the ball in front of the player
+        //Idea: When this push happens, try to increase the minDistance variable
+        //to the player not follow the ball with so much rigidity
     }
 }
