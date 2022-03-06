@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float speed;
-    public float runMaxSpeed;
-    public float normalMaxSpeed;
-    private float maxSpeed;
-    public Transform playerLookAt;
-    
+    public float speed, runMaxSpeed, normalMaxSpeed, maxSpeed;
+    public bool isMovingBall, isJoggingBall;   
+    public ForceMode forceModeMovement;
+    public Transform currentPlayer;
+    private FollowObject playerFollowController;    
     private Rigidbody rb;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    void Update()
-    {
-        playerLookAt.position = new Vector3(transform.position.x, 2.4f, transform.position.z);
-    }
-
-    // Update is called once per frame
+        playerFollowController = currentPlayer.GetComponent<FollowObject>();
+    }    
     void FixedUpdate()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -30,30 +23,55 @@ public class BallController : MonoBehaviour
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical);
 
-        rb.AddForce(movement * speed);
-
-        if (rb.velocity.magnitude > maxSpeed)
+        if (movement != Vector3.zero)
         {
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+            isMovingBall = true;            
+            JogBall(movement);
         }
+        else
+        {
+            isMovingBall = false;
+        }
+
+        //rb.AddForce(movement * speed); // Move Ball constantly (ordinary movement)
+
+        //Keep a limit of velocity
+        if (rb.velocity.magnitude > maxSpeed)
+        {            
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+        }        
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = runMaxSpeed;
-            //TODO: Increase the player following speed too (or using the same variable)
+            playerFollowController.speed = playerFollowController.runSpeed;
         }
         else
         {
             maxSpeed = normalMaxSpeed;
+            playerFollowController.speed = playerFollowController.normalSpeed;
         }
 
-        print(rb.velocity.magnitude);
+        //print(rb.velocity.magnitude);
     }
 
-    void JogBall()
+    void JogBall(Vector3 movement)
     {
         //A little force the push the ball in front of the player
         //Idea: When this push happens, try to increase the minDistance variable
         //to the player not follow the ball with so much rigidity
+        if (!isJoggingBall && playerFollowController.distanceOfPlayer < 2)
+        {
+            isJoggingBall = true;
+
+            rb.AddForce(movement * speed, forceModeMovement);
+            rb.AddForce(Vector3.up, forceModeMovement);
+            Invoke("ResetIsJoggingBall", 0.8f);
+        }
+    }
+
+    void ResetIsJoggingBall()
+    {
+        isJoggingBall = false;
     }
 }
