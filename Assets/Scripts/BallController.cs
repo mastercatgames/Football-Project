@@ -5,52 +5,69 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     public float speed, runMaxSpeed, normalMaxSpeed, maxSpeed;
-    public bool isMovingBall, isJoggingBall;   
-    public ForceMode forceModeMovement;
+    public bool isMovingBall, isJoggingBall, isShooting;
+    public ForceMode forceModeMovement, forceModeShoot;
     public Transform currentPlayer;
-    private FollowObject playerFollowController;    
+    public FollowObject playerFollowController;
     private Rigidbody rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        playerFollowController = currentPlayer.GetComponent<FollowObject>();
-    }    
+        rb = GetComponent<Rigidbody>();        
+    }
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontal, 0f, vertical);
-
-        if (movement != Vector3.zero)
+        if (currentPlayer != null)
         {
-            isMovingBall = true;            
-            JogBall(movement);
-        }
-        else
-        {
-            isMovingBall = false;
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            Vector3 movement = new Vector3(horizontal, 0f, vertical);
+
+            if (movement != Vector3.zero)
+            {
+                isMovingBall = true;
+                JogBall(movement);
+            }
+            else
+            {
+                isMovingBall = false;
+            }
+
+            //rb.AddForce(movement * speed); // Move Ball constantly (ordinary movement)
+
+            //Keep a limit of velocity
+            if (rb.velocity.magnitude > maxSpeed)
+            {
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                maxSpeed = runMaxSpeed;
+                playerFollowController.speed = playerFollowController.runSpeed;
+            }
+            else
+            {
+                maxSpeed = normalMaxSpeed;
+                playerFollowController.speed = playerFollowController.normalSpeed;
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                Shoot();
+            }
         }
 
-        //rb.AddForce(movement * speed); // Move Ball constantly (ordinary movement)
-
-        //Keep a limit of velocity
-        if (rb.velocity.magnitude > maxSpeed)
-        {            
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
-        }        
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            maxSpeed = runMaxSpeed;
-            playerFollowController.speed = playerFollowController.runSpeed;
-        }
-        else
-        {
-            maxSpeed = normalMaxSpeed;
-            playerFollowController.speed = playerFollowController.normalSpeed;
-        }
+        // if (transform.position.y < 1f && rb.velocity.magnitude < 4)
+        // {
+        //     //Break the ball if its rolling some time
+        //     rb.drag = 2f;
+        // }
+        // else
+        // {
+        //     rb.drag = 0f;
+        // }
 
         //print(rb.velocity.magnitude);
     }
@@ -73,5 +90,23 @@ public class BallController : MonoBehaviour
     void ResetIsJoggingBall()
     {
         isJoggingBall = false;
+    }
+
+    void ResetIsShooting()
+    {
+        isShooting = false;
+    }
+
+    void Shoot()
+    {
+        float force = currentPlayer.GetComponent<PlayerController>().shootForce;
+        float upForce = 40f;
+        rb.AddForce(currentPlayer.forward * Time.deltaTime * force * 50f, forceModeShoot);
+        rb.AddForce(currentPlayer.up * Time.deltaTime * force * upForce, forceModeShoot);
+        rb.drag = 0f;
+
+        isShooting = true;
+        Invoke("ResetIsShooting", 0.8f);
+        currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();
     }
 }

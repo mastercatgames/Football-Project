@@ -146,7 +146,7 @@ public class SimplePlayerMove : MonoBehaviour
 
         print("Shoot! Force: " + force);
         Invoke("ResetIsShooting", 1f);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().EnablePlayerToRun();
+        // GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().EnablePlayerToRun();
     }
 
     public void Move(float force, float interval = 0.8f)
