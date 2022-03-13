@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float playerSpeed, normalSpeed, runSpeed, shootForce;
-    private bool isRunning, isHavingBall;
+    public float playerSpeed, normalSpeed, runSpeed, shootForce, normalShootForce, shootLimit;
+    public bool isRunning, isHavingBall, isPreShooting;
     public BallController ballController;
     private Rigidbody rb;
+    public Transform GoalToLookAt;
 
     private void Start()
     {
@@ -17,31 +18,58 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        if (move != Vector3.zero)
+        if (!isHavingBall)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+            if (move != Vector3.zero)
             {
-                isRunning = true;
-                playerSpeed = runSpeed;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    isRunning = true;
+                    playerSpeed = runSpeed;
+                }
+                else
+                {
+                    isRunning = false;
+                    playerSpeed = normalSpeed;
+                }
+
+                rb.MovePosition(transform.position + move * playerSpeed * Time.deltaTime);
+                gameObject.transform.forward = move; //Rotation
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (shootForce < shootLimit)
+            {
+                shootForce += Time.deltaTime * 300f;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space) && !ballController.isShooting)
+        {
+            if (isHavingBall)
+            {
+                ballController.Shoot();                
             }
             else
             {
-                isRunning = false;
-                playerSpeed = normalSpeed;
-            }
-
-            rb.MovePosition(transform.position + move * playerSpeed * Time.deltaTime);
-            gameObject.transform.forward = move; //Rotation
+                isPreShooting = true;
+                GetComponent<FollowObject>().enabled = true;
+                GetComponent<FollowObject>().speed = GetComponent<FollowObject>().runSpeed; 
+            }            
         }
+
+        transform.Find("AimGoal").LookAt(GoalToLookAt);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Ball" && !ballController.isShooting)
         {
-            this.enabled = false;
+            //this.enabled = false;
             isHavingBall = true;
             //ballController.enabled = true;
             ballController.currentPlayer = this.transform;
@@ -52,6 +80,13 @@ public class PlayerController : MonoBehaviour
             GetComponent<FollowObject>().enabled = true;
 
             ballController.GetComponent<Rigidbody>().drag = 2f;
+
+            if (isPreShooting)
+            {
+                ballController.Shoot();
+                isPreShooting = false;    
+                GetComponent<FollowObject>().speed = GetComponent<FollowObject>().normalSpeed;           
+            }
         }
     }
 
@@ -59,7 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         //After shoot/pass
         //TODO: Make it in ballController
-        this.enabled = true;
+        //this.enabled = true;
         isHavingBall = false;
         //ballController.enabled = false;
         ballController.currentPlayer = null;
@@ -67,5 +102,7 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = false;
         GetComponent<CapsuleCollider>().enabled = true;
         GetComponent<FollowObject>().enabled = false;
+
+        shootForce = normalShootForce;
     }
 }

@@ -582,7 +582,13 @@ MonoBehaviour:
   normalSpeed: 5
   runSpeed: 15
   shootForce: 1
+  normalShootForce: 0
+  shootLimit: 0
+  isRunning: 0
+  isHavingBall: 0
+  isPreShooting: 0
   ballController: {fileID: 0}
+  GoalToLookAt: {fileID: 0}
 --- !u!114 &50456563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3005,7 +3011,7 @@ MeshCollider:
   m_GameObject: {fileID: 143685443}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -6075,7 +6081,7 @@ MeshCollider:
   m_GameObject: {fileID: 221180234}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -6555,7 +6561,7 @@ MeshCollider:
   m_GameObject: {fileID: 242778988}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -6684,7 +6690,7 @@ MeshCollider:
   m_GameObject: {fileID: 245704072}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -10402,7 +10408,7 @@ MeshCollider:
   m_GameObject: {fileID: 359259755}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -11322,7 +11328,7 @@ MeshCollider:
   m_GameObject: {fileID: 412471719}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -11639,7 +11645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430855263}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 10.023866, y: 1.0256635, z: -5.423058}
+  m_LocalPosition: {x: 10.023866, y: 1.0005, z: -5.423058}
   m_LocalScale: {x: 0.0068630055, y: 0.004964691, z: 0.005176058}
   m_Children: []
   m_Father: {fileID: 1867525570}
@@ -11654,7 +11660,7 @@ MeshCollider:
   m_GameObject: {fileID: 430855263}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -11942,7 +11948,7 @@ MeshCollider:
   m_GameObject: {fileID: 467399846}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -15117,7 +15123,7 @@ MeshCollider:
   m_GameObject: {fileID: 553989439}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -15887,7 +15893,7 @@ MeshCollider:
   m_GameObject: {fileID: 602509783}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -16175,7 +16181,7 @@ MeshCollider:
   m_GameObject: {fileID: 628570649}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -16628,7 +16634,7 @@ MeshCollider:
   m_GameObject: {fileID: 638420296}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -17930,7 +17936,7 @@ MeshCollider:
   m_GameObject: {fileID: 694216563}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -18218,7 +18224,7 @@ MeshCollider:
   m_GameObject: {fileID: 719004506}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -18602,7 +18608,7 @@ MeshCollider:
   m_GameObject: {fileID: 733305940}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -23483,7 +23489,7 @@ MeshCollider:
   m_GameObject: {fileID: 851119774}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -28104,7 +28110,7 @@ MeshCollider:
   m_GameObject: {fileID: 946234961}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -30570,6 +30576,7 @@ MonoBehaviour:
   forceModeMovement: 0
   forceModeShoot: 0
   currentPlayer: {fileID: 0}
+  LeftGoal: {fileID: 0}
   playerFollowController: {fileID: 0}
 --- !u!1 &1008530581
 GameObject:
@@ -32201,7 +32208,7 @@ MeshCollider:
   m_GameObject: {fileID: 1025348671}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -32666,7 +32673,7 @@ MeshCollider:
   m_GameObject: {fileID: 1043242539}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -32720,6 +32727,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043242539}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1047555064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1047555065}
+  m_Layer: 0
+  m_Name: AimGoal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1047555065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047555064}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1480812967}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054317958
 GameObject:
   m_ObjectHideFlags: 0
@@ -33050,7 +33087,7 @@ MeshCollider:
   m_GameObject: {fileID: 1090536385}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -33258,7 +33295,7 @@ MeshCollider:
   m_GameObject: {fileID: 1104739884}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -38253,7 +38290,7 @@ MeshCollider:
   m_GameObject: {fileID: 1225724877}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -38868,7 +38905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252695959}
   m_LocalRotation: {x: 0.19936788, y: 0, z: 0, w: 0.97992474}
-  m_LocalPosition: {x: -0.20000012, y: 27.4, z: -55.6}
+  m_LocalPosition: {x: -0.20000012, y: 27.27, z: -55.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1162645010}
@@ -41275,7 +41312,7 @@ MeshCollider:
   m_GameObject: {fileID: 1341718244}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -41467,7 +41504,7 @@ MeshCollider:
   m_GameObject: {fileID: 1351664646}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -43170,7 +43207,7 @@ MeshCollider:
   m_GameObject: {fileID: 1376089418}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -43302,7 +43339,7 @@ MeshCollider:
   m_GameObject: {fileID: 1388677173}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -44110,7 +44147,7 @@ MeshCollider:
   m_GameObject: {fileID: 1417918008}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -44398,7 +44435,7 @@ MeshCollider:
   m_GameObject: {fileID: 1436836634}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -46041,12 +46078,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480812963}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -15.288892, y: 1.93, z: 0.69506615}
+  m_LocalPosition: {x: -6.08, y: 1.93, z: 2.45}
   m_LocalScale: {x: 1, y: 1.7842, z: 1}
   m_Children:
   - {fileID: 972440677}
   - {fileID: 1445187071}
   - {fileID: 200448789}
+  - {fileID: 1047555065}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -46065,8 +46103,14 @@ MonoBehaviour:
   playerSpeed: 5
   normalSpeed: 5
   runSpeed: 15
-  shootForce: 5
+  shootForce: 600
+  normalShootForce: 600
+  shootLimit: 1000
+  isRunning: 0
+  isHavingBall: 0
+  isPreShooting: 0
   ballController: {fileID: 0}
+  GoalToLookAt: {fileID: 2070106660}
 --- !u!54 &1480812969
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -47074,7 +47118,7 @@ MeshCollider:
   m_GameObject: {fileID: 1555860189}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -47311,7 +47355,7 @@ MeshCollider:
   m_GameObject: {fileID: 1564443152}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -47573,7 +47617,13 @@ MonoBehaviour:
   normalSpeed: 5
   runSpeed: 15
   shootForce: 1
+  normalShootForce: 0
+  shootLimit: 0
+  isRunning: 0
+  isHavingBall: 0
+  isPreShooting: 0
   ballController: {fileID: 0}
+  GoalToLookAt: {fileID: 0}
 --- !u!1 &1580311995
 GameObject:
   m_ObjectHideFlags: 0
@@ -47808,7 +47858,7 @@ MeshCollider:
   m_GameObject: {fileID: 1595429809}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -49059,7 +49109,7 @@ MeshCollider:
   m_GameObject: {fileID: 1619402127}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -49916,7 +49966,13 @@ MonoBehaviour:
   normalSpeed: 5
   runSpeed: 15
   shootForce: 1
+  normalShootForce: 0
+  shootLimit: 0
+  isRunning: 0
+  isHavingBall: 0
+  isPreShooting: 0
   ballController: {fileID: 0}
+  GoalToLookAt: {fileID: 0}
 --- !u!114 &1645740005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50154,7 +50210,7 @@ MeshCollider:
   m_GameObject: {fileID: 1650968558}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -50712,7 +50768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.19936788, y: 0, z: 0, w: 0.97992474}
-  m_LocalPosition: {x: -0.20000012, y: 27.4, z: -55.6}
+  m_LocalPosition: {x: -0.20000012, y: 27.27, z: -55.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53650,7 +53706,7 @@ MeshCollider:
   m_GameObject: {fileID: 1847089898}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -60207,7 +60263,7 @@ MeshCollider:
   m_GameObject: {fileID: 2091965825}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -60717,7 +60773,7 @@ MeshCollider:
   m_GameObject: {fileID: 2130263243}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -82683,7 +82739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8905508400731919284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 2.25}
+  m_LocalPosition: {x: 0, y: 0.87, z: 2.25}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82732,6 +82788,7 @@ MonoBehaviour:
   forceModeMovement: 1
   forceModeShoot: 1
   currentPlayer: {fileID: 0}
+  LeftGoal: {fileID: 509447277}
   playerFollowController: {fileID: 0}
 --- !u!54 &8905508400731919286
 Rigidbody:

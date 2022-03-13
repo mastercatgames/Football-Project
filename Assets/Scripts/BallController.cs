@@ -7,7 +7,7 @@ public class BallController : MonoBehaviour
     public float speed, runMaxSpeed, normalMaxSpeed, maxSpeed;
     public bool isMovingBall, isJoggingBall, isShooting;
     public ForceMode forceModeMovement, forceModeShoot;
-    public Transform currentPlayer;
+    public Transform currentPlayer, LeftGoal;
     public FollowObject playerFollowController;
     private Rigidbody rb;
 
@@ -51,12 +51,7 @@ public class BallController : MonoBehaviour
             {
                 maxSpeed = normalMaxSpeed;
                 playerFollowController.speed = playerFollowController.normalSpeed;
-            }
-
-            if (Input.GetKey(KeyCode.Space))
-            {
-                Shoot();
-            }
+            }            
         }
 
         // if (transform.position.y < 1f && rb.velocity.magnitude < 4)
@@ -97,12 +92,14 @@ public class BallController : MonoBehaviour
         isShooting = false;
     }
 
-    void Shoot()
+    public void Shoot()
     {
         float force = currentPlayer.GetComponent<PlayerController>().shootForce;
-        float upForce = 40f;
-        rb.AddForce(currentPlayer.forward * Time.deltaTime * force * 50f, forceModeShoot);
-        rb.AddForce(currentPlayer.up * Time.deltaTime * force * upForce, forceModeShoot);
+        float upForce = currentPlayer.GetComponent<PlayerController>().normalShootForce;
+        //float upForce = 40f;
+        rb.AddForce(currentPlayer.Find("AimGoal").forward * Time.deltaTime * force, forceModeShoot);
+        rb.AddForce(currentPlayer.Find("AimGoal").up * Time.deltaTime * (force - (upForce + 100f)), forceModeShoot);
+
         rb.drag = 0f;
 
         isShooting = true;
