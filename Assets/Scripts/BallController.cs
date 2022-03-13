@@ -106,4 +106,13 @@ public class BallController : MonoBehaviour
         Invoke("ResetIsShooting", 0.8f);
         currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "GoalCollider")
+        {
+            rb.drag = 2;
+            print("Goal!");
+        }
+    }
 }
