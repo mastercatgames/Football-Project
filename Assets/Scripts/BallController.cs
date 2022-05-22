@@ -72,7 +72,7 @@ public class BallController : MonoBehaviour
         //A little force the push the ball in front of the player
         //Idea: When this push happens, try to increase the minDistance variable
         //to the player not follow the ball with so much rigidity
-        if (!isJoggingBall && playerFollowController.distanceOfPlayer < 2)
+        if (!isJoggingBall && playerFollowController.distanceOfPlayer < 0.9)
         {
             isJoggingBall = true;
 
@@ -95,12 +95,14 @@ public class BallController : MonoBehaviour
     public void Shoot()
     {
         float force = currentPlayer.GetComponent<PlayerController>().shootForce;
-        float upForce = currentPlayer.GetComponent<PlayerController>().normalShootForce;
+        float upForce = currentPlayer.GetComponent<PlayerController>().shootForce - 200f; //if L1 is pressed: -70f
+        
+
         //float upForce = 40f;
         rb.AddForce(currentPlayer.Find("AimGoal").forward * Time.deltaTime * force, forceModeShoot);
-        rb.AddForce(currentPlayer.Find("AimGoal").up * Time.deltaTime * (force - (upForce + 100f)), forceModeShoot);
+        rb.AddForce(currentPlayer.Find("AimGoal").up * Time.deltaTime * upForce, forceModeShoot);
 
-        rb.drag = 0f;
+        rb.drag = 0.01f;
 
         isShooting = true;
         Invoke("ResetIsShooting", 0.8f);

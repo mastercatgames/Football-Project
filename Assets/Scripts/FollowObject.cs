@@ -16,10 +16,10 @@ public class FollowObject : MonoBehaviour
     void FixedUpdate()
     {
         distanceOfPlayer = Vector3.Distance(ball.position, transform.position);
-        if (distanceOfPlayer > 2f)
+        if (distanceOfPlayer > 0.5f)
         {
             transform.position = Vector3.MoveTowards(transform.position, ball.position, speed * Time.fixedDeltaTime); // Move player to the ball
-            transform.position = new Vector3(transform.position.x, 2f, transform.position.z); //Keep the player on ground
+            transform.position = new Vector3(transform.position.x, 0f, transform.position.z); //Keep the player on ground
         }
 
         LookAtBall();        
