@@ -34,6 +34,8 @@ public class BallController : MonoBehaviour
                 isMovingBall = false;
             }
 
+            currentPlayer.GetComponent<PlayerController>().MovePlayerAnimState(isMovingBall);
+
             //rb.AddForce(movement * speed); // Move Ball constantly (ordinary movement)
 
             //Keep a limit of velocity
@@ -106,7 +108,7 @@ public class BallController : MonoBehaviour
 
         isShooting = true;
         Invoke("ResetIsShooting", 0.8f);
-        currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();
+        currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();        
     }
 
     private void OnTriggerEnter(Collider other)
