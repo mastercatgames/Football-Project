@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallController : MonoBehaviour
 {
     public float speed, runMaxSpeed, normalMaxSpeed, maxSpeed;
-    public bool isMovingBall, isJoggingBall, isShooting;
+    public bool isMovingBall, isJoggingBall, isShooting, isOut;
     public ForceMode forceModeMovement, forceModeShoot;
     public Transform currentPlayer, LeftGoal;
     public FollowObject playerFollowController;
     private Rigidbody rb;
+    private UIController uiController;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();        
+        rb = GetComponent<Rigidbody>();
+        uiController = GameObject.FindWithTag("UI").GetComponent<UIController>();
     }
     void FixedUpdate()
     {
@@ -53,7 +56,7 @@ public class BallController : MonoBehaviour
             {
                 maxSpeed = normalMaxSpeed;
                 playerFollowController.speed = playerFollowController.normalSpeed;
-            }            
+            }
         }
 
         // if (transform.position.y < 1f && rb.velocity.magnitude < 4)
@@ -98,7 +101,7 @@ public class BallController : MonoBehaviour
     {
         float force = currentPlayer.GetComponent<PlayerController>().shootForce;
         float upForce = currentPlayer.GetComponent<PlayerController>().shootForce - 200f; //if L1 is pressed: -70f
-        
+
 
         //float upForce = 40f;
         rb.AddForce(currentPlayer.Find("AimGoal").forward * Time.deltaTime * force, forceModeShoot);
@@ -108,15 +111,45 @@ public class BallController : MonoBehaviour
 
         isShooting = true;
         Invoke("ResetIsShooting", 0.8f);
-        currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();        
+        currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "GoalCollider")
+
+        //Temporary
+        if (other.name.Contains("throwin")
+        || other.name.Contains("corner")
+        || other.name.Contains("Goal"))
         {
-            rb.drag = 2;
-            print("Goal!");
+            if (other.name == "GoalCollider")
+            {
+                rb.drag = 2;
+                print("Goal!");
+            }
+
+            //Get current position of the ball
+
+            isOut = true;
+            uiController.anim.ChangeState("FadeOut");
+
+            if (currentPlayer != null)
+            {
+                currentPlayer.GetComponent<PlayerController>().EnablePlayerToRun();
+            }
+
+            Invoke("ReloadScene", 2f);
         }
     }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    // private void CenterBallAndPlayer()
+    // {
+    //     transform.localPosition = new Vector3 (2.5f, 0f, 0f);
+    //     currentPlayer.localPosition = new Vector3 (2.5f, 0f, 0f);
+    // }
 }

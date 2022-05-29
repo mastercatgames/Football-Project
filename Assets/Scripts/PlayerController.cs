@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "Ball" && !ballController.isShooting)
+        if (other.name == "Ball" && !ballController.isShooting && !ballController.isOut)
         {
             //this.enabled = false;
             isHavingBall = true;
